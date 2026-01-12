@@ -1,6 +1,5 @@
-import { Link } from "lucide-react";
+import AppButton from "@/components/ui/AppButton";
 
-// Call to Action component
 export default function CallToAction() {
   return (
     <section className="bg-yellow-400 text-white py-16 text-center">
@@ -8,12 +7,10 @@ export default function CallToAction() {
       <p className="text-lg md:text-xl mb-6">
         Order your favorite Kacchi Biryani and enjoy the authentic taste!
       </p>
-      <Link
-        href="/order"
-        className="bg-white text-yellow-400 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition"
-      >
+
+      <AppButton href="/order" size="lg" variant="outline">
         Order Now
-      </Link>
+      </AppButton>
     </section>
   );
 }
