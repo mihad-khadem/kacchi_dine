@@ -1,7 +1,9 @@
+import CallToAction from "@/components/home/CallToAction";
 import HeroCarousel from "@/components/home/Hero";
 import Branches from "@/components/home/OurBranches";
 import PopularFoods from "@/components/home/PopularFoods";
 import TodaysOffers from "@/components/home/TodaysOffers";
+import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 
 // Fake data for demo, replace with API calls
@@ -62,18 +64,9 @@ export default function HomePage() {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-yellow-400 text-white py-16 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Hungry Yet?</h2>
-        <p className="text-lg md:text-xl mb-6">
-          Order your favorite Kacchi Biryani and enjoy the authentic taste!
-        </p>
-        <Link
-          href="/order"
-          className="bg-white text-yellow-400 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-200 transition"
-        >
-          Order Now
-        </Link>
-      </section>
+      <CallToAction />
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
