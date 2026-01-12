@@ -54,7 +54,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex gap-6 items-center text-sm md:text-base font-medium">
+        <div className="hidden md:flex gap-2 items-center text-sm md:text-base font-medium">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -73,7 +73,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`px-3 py-2 rounded-md transition ${
+              className={`px-1 py-2 rounded-md transition ${
                 pathname === item.href
                   ? "bg-yellow-400 text-white"
                   : "text-gray-700 hover:text-yellow-500 hover:bg-yellow-100"
