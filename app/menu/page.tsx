@@ -23,6 +23,7 @@ interface MenuItem {
 }
 
 const categories: string[] = [
+  "All",
   "Kacchi",
   "Chicken Biryani",
   "Mutton Tehari",
@@ -31,40 +32,34 @@ const categories: string[] = [
 ];
 
 export default function MenuPage() {
-  const [activeCategory, setActiveCategory] = useState<string>(categories[0]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 6;
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [pages, setPages] = useState<Record<string, number>>({});
 
-  const filteredItems = (menuItems as MenuItem[]).filter(
-    (item) => item.category === activeCategory
-  );
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-  const paginatedItems = filteredItems.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const handlePageChange = (category: string, newPage: number) => {
+    setPages((prev) => ({ ...prev, [category]: newPage }));
+  };
+
+  const handleCategoryChange = (val: string) => {
+    setActiveCategory(val);
+    setPages({}); // Reset all pages when category changes
+  };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 space-y-8">
-      <h1 className="text-3xl font-bold text-center mb-6">Our Menu</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-6 sm:space-y-8">
+      <h1 className="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6">
+        Our Menu
+      </h1>
 
-      <Tabs
-        value={activeCategory}
-        onValueChange={(val: string) => {
-          setActiveCategory(val);
-          setCurrentPage(1);
-        }}
-      >
-        <div className="flex justify-center">
-          <TabsList className="flex justify-center mb-6 gap-2">
+      <Tabs value={activeCategory} onValueChange={handleCategoryChange}>
+        <div className="flex justify-start sm:justify-center overflow-x-auto scrollbar-hide">
+          <TabsList className="inline-flex min-w-max space-x-2 px-2 mb-6 bg-transparent">
             {categories.map((cat) => (
               <TabsTrigger
                 key={cat}
                 value={cat}
-                className="px-4 py-2 rounded transition
-                   data-[state=active]:bg-yellow-400
-                   data-[state=active]:text-white
-                   bg-gray-200 text-gray-800 hover:bg-gray-300"
+                className="px-3 py-2 text-sm rounded-md transition-all whitespace-nowrap
+                   data-[state=active]:bg-yellow-400 data-[state=active]:text-white data-[state=active]:shadow-md
+                   bg-gray-200 text-gray-800 hover:bg-gray-300 hover:scale-105"
               >
                 {cat}
               </TabsTrigger>
@@ -72,32 +67,47 @@ export default function MenuPage() {
           </TabsList>
         </div>
 
-        {categories.map((cat) => (
-          <TabsContent key={cat} value={cat}>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {paginatedItems.map((item) => (
-                <MenuCard key={item.id} item={item} />
-              ))}
-            </div>
+        {categories.map((cat) => {
+          const filteredItems = (menuItems as MenuItem[]).filter(
+            (item) => cat === "All" || item.category === cat
+          );
+          const currentPage = pages[cat] || 1;
+          const itemsPerPage = 6;
+          const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+          const paginatedItems = filteredItems.slice(
+            (currentPage - 1) * itemsPerPage,
+            currentPage * itemsPerPage
+          );
 
-            {/* Pagination */}
-            <div className="flex justify-center gap-3 mt-6">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i + 1}
-                  className={`px-3 py-1 rounded ${
-                    currentPage === i + 1
-                      ? "bg-yellow-400 text-white"
-                      : "bg-gray-200"
-                  }`}
-                  onClick={() => setCurrentPage(i + 1)}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
-          </TabsContent>
-        ))}
+          return (
+            <TabsContent key={cat} value={cat}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {paginatedItems.map((item) => (
+                  <MenuCard key={item.id} item={item} />
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-8">
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <button
+                      key={i + 1}
+                      className={`px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base rounded-md transition-colors ${
+                        currentPage === i + 1
+                          ? "bg-yellow-400 text-white"
+                          : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                      }`}
+                      onClick={() => handlePageChange(cat, i + 1)}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </TabsContent>
+          );
+        })}
       </Tabs>
     </div>
   );

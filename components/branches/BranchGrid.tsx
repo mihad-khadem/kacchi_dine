@@ -47,16 +47,15 @@ export default function BranchesGridPage() {
 
       {/* Tabs */}
       <Tabs defaultValue="All">
-        <div className="flex justify-center">
-          <TabsList className="mb-8">
+        <div className="flex justify-start sm:justify-center overflow-x-auto scrollbar-hide">
+          <TabsList className="mb-8 inline-flex min-w-max space-x-2 px-2 bg-transparent">
             {divisions.map((d) => (
               <TabsTrigger
                 key={d}
                 value={d}
-                className="px-4 py-2 rounded transition
-                   data-[state=active]:bg-yellow-400
-                   data-[state=active]:text-white
-                   bg-gray-200 text-gray-800 hover:bg-gray-300"
+                className="px-3 py-2 text-sm rounded-md transition-all whitespace-nowrap
+                   data-[state=active]:bg-yellow-400 data-[state=active]:text-white data-[state=active]:shadow-md
+                   bg-gray-200 text-gray-800 hover:bg-gray-300 hover:scale-105"
               >
                 {d}
               </TabsTrigger>

@@ -34,7 +34,7 @@ export default function BranchCard({
         <p>📞 {phone}</p>
         <p>⏰ {time}</p>
 
-        <div className="flex flex-wrap gap-2 pt-3">
+        <div className="flex flex-wrap gap-3 pt-3">
           <AppButton
             href={`/order?branch=${encodeURIComponent(name)}`}
             size="sm"
@@ -53,7 +53,6 @@ export default function BranchCard({
           >
             Call
           </AppButton>
-
           <AppButton size="sm">Book Now</AppButton>
         </div>
       </div>
