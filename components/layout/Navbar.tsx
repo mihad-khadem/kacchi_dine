@@ -19,7 +19,8 @@ export default function Navbar() {
     { label: "Offers", href: "/offers" },
     { label: "Branches", href: "/branches" },
     { label: "About Us", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Book Now", href: "/bookings" },
+    { label: "Cart", href: "/cart" },
   ];
 
   const roleLinks =
