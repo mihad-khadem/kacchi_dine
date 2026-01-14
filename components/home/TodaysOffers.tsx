@@ -36,7 +36,7 @@ export default function TodaysOffers() {
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">
       <div className="flex justify-between items-center mb-8">
-        <HeadingFont text="🔥 Today’s Offers" />
+        <HeadingFont text=" Today’s Offers" animated />
         <Link
           href="/offers"
           className="text-yellow-500 font-semibold hover:underline"

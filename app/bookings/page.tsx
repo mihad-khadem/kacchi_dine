@@ -1,12 +1,13 @@
 // bookings/page.tsx
+
+import BookingsLayout from "@/components/booking/BookingLayout";
 import React from "react";
 
 const BookingsPage: React.FC = () => {
   return (
-    <div>
-      <h1>Bookings Page</h1>
-      <p>Welcome to the bookings page. Here you can manage your bookings.</p>
-    </div>
+    <>
+      <BookingsLayout />
+    </>
   );
 };
 export default BookingsPage;

@@ -132,3 +132,63 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1s linear infinite;
+}
+@keyframes fireGlow {
+  0% {
+    text-shadow: 0 0 10px #facc15, 0 0 20px #f59e0b;
+  }
+  50% {
+    text-shadow: 0 0 20px #fde047, 0 0 40px #f97316;
+  }
+  100% {
+    text-shadow: 0 0 10px #facc15, 0 0 20px #f59e0b;
+  }
+}
+
+@keyframes neonPulse {
+  0% {
+    filter: drop-shadow(0 0 6px #facc15);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px #fde047);
+  }
+  100% {
+    filter: drop-shadow(0 0 6px #facc15);
+  }
+}
+
+.fire-glow {
+  animation: fireGlow 2.5s ease-in-out infinite;
+}
+
+.neon-outline {
+  -webkit-text-stroke: 1px #fde047;
+  animation: neonPulse 3s ease-in-out infinite;
+}
+@keyframes goldPulse {
+  0% {
+    text-shadow: 0 0 6px #facc15, 0 0 12px #f59e0b;
+  }
+  50% {
+    text-shadow: 0 0 14px #fde047, 0 0 30px #f97316;
+  }
+  100% {
+    text-shadow: 0 0 6px #facc15, 0 0 12px #f59e0b;
+  }
+}
+
+.gold-fire {
+  color: #facc15;
+  animation: goldPulse 2s ease-in-out infinite;
+}
