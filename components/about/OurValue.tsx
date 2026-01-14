@@ -1,7 +1,15 @@
 import React from "react";
 import { Heart, ChefHat, MapPin, Truck } from "lucide-react";
 
-function ValueCard({ icon, title, desc }) {
+function ValueCard({
+  icon,
+  title,
+  desc,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}) {
   return (
     <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 text-center shadow hover:shadow-lg transition">
       <div className="w-12 h-12 mx-auto flex items-center justify-center bg-yellow-400/20 text-yellow-400 rounded-full mb-4">
