@@ -1,7 +1,6 @@
 "use client";
 
 import { Alert } from "@/components/ui/alert";
-import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   PartyPopper,
@@ -57,25 +56,29 @@ export default function AppAlert({
         >
           <Alert
             className="
-              relative overflow-hidden rounded-xl p-5
+              relative flex items-center gap-4 rounded-xl p-5
               bg-black border border-yellow-500/40
               shadow-[0_0_40px_rgba(250,204,21,0.25)]
             "
           >
-            <div className="flex items-start gap-4">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 shadow-[0_0_15px_rgba(250,204,21,0.7)]">
-                <Icon className="h-5 w-5 text-black" />
-              </div>
-
-              <div className="flex-1">
-                <h3 className="font-bold text-yellow-400">{title}</h3>
-                <p className="text-sm text-yellow-200 mt-1">{message}</p>
-              </div>
-
-              <button onClick={onClose}>
-                <X className="h-4 w-4 text-yellow-400 hover:text-yellow-300" />
-              </button>
+            {/* Icon */}
+            <div className="flex-shrink-0 p-3 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 shadow-[0_0_15px_rgba(250,204,21,0.7)]">
+              <Icon className="h-6 w-6 text-black" />
             </div>
+
+            {/* Text (full width) */}
+            <div className="flex-1 flex flex-col justify-center">
+              <h3 className="font-bold text-yellow-400 text-lg">{title}</h3>
+              <p className="text-sm text-yellow-200 mt-1">{message}</p>
+            </div>
+
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="flex-shrink-0 ml-4 p-1 rounded hover:bg-yellow-500/20"
+            >
+              <X className="h-5 w-5 text-yellow-400 hover:text-yellow-300" />
+            </button>
           </Alert>
         </motion.div>
       )}

@@ -11,15 +11,18 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import AppAlert from "../ui/AppAlert";
 
 export default function CorporateBooking() {
   const [form, setForm] = useState<any>({});
+  const [alertOpen, setAlertOpen] = useState(false);
 
   const set = (k: string, v: string) => setForm({ ...form, [k]: v });
 
   const submit = () => {
     console.log("Corporate Booking", form);
-    alert("Corporate booking request sent!");
+    // Trigger the alert by setting state
+    setAlertOpen(true);
   };
 
   return (
@@ -115,6 +118,17 @@ export default function CorporateBooking() {
       >
         Request Corporate Booking
       </Button>
+
+      {/* Render AppAlert as component */}
+      {alertOpen && (
+        <AppAlert
+          type="success"
+          message="Corporate booking request sent!"
+          title="Celebrate 🎉"
+          open={alertOpen}
+          onClose={() => setAlertOpen(false)}
+        />
+      )}
     </div>
   );
 }

@@ -41,11 +41,7 @@ export default function BookingsPage() {
           </p>
         )}
 
-        {type === "table" ? (
-          <TableBookingForm branch={branch} />
-        ) : (
-          <CorporateBookingForm branch={branch} />
-        )}
+        {type === "table" ? <TableBookingForm /> : <CorporateBookingForm />}
       </div>
     </div>
   );
