@@ -37,7 +37,7 @@ export default function PopularFoods() {
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">
       <div className="flex justify-between items-center mb-8">
-        <HeadingFont text="⭐ Popular Foods" />
+        <HeadingFont text="Popular Foods" />
         <Link
           href="/menu"
           className="text-yellow-500 font-semibold hover:underline"

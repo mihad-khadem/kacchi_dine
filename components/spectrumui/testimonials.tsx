@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Play, Star } from "lucide-react";
+import { Heading, Play, Star } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 
