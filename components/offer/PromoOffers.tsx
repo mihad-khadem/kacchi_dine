@@ -1,17 +1,13 @@
 "use client";
 import { BadgePercent, Copy, Check } from "lucide-react";
 import React, { useState } from "react";
-
-const promoCodes = [
-  { code: "KACCHI20", desc: "20% OFF on orders above 800৳" },
-  { code: "DINENOW", desc: "Flat 100৳ off" },
-  { code: "FAMILY10", desc: "10% OFF on combo meals" },
-];
+import { useActiveOffers } from "@/redux/hooks";
 
 export const PromoOffers = () => {
-  const [copied, setCopied] = useState(null);
+  const offers = useActiveOffers();
+  const [copied, setCopied] = useState<string | null>(null);
 
-  const handleCopy = async (code: any) => {
+  const handleCopy = async (code: string) => {
     await navigator.clipboard.writeText(code);
     setCopied(code);
     setTimeout(() => setCopied(null), 1500);
@@ -28,18 +24,18 @@ export const PromoOffers = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-4">
-          {promoCodes.map((promo, index) => (
+          {offers.slice(0, 3).map((offer) => (
             <div
-              key={index}
-              onClick={() => handleCopy(promo.code)}
+              key={offer.id}
+              onClick={() => handleCopy(offer.code)}
               className="border border-dashed border-yellow-500 rounded-lg p-4 flex flex-col items-center text-center cursor-pointer hover:bg-yellow-50 dark:hover:bg-neutral-700 transition"
             >
               <div className="flex items-center gap-2">
                 <p className="text-lg font-bold text-yellow-400">
-                  {promo.code}
+                  {offer.code}
                 </p>
 
-                {copied === promo.code ? (
+                {copied === offer.code ? (
                   <Check className="w-4 h-4 text-green-500" />
                 ) : (
                   <Copy className="w-4 h-4 text-yellow-400 opacity-70" />
@@ -47,8 +43,15 @@ export const PromoOffers = () => {
               </div>
 
               <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-                {promo.desc}
+                {offer.discountPercent
+                  ? `${offer.discountPercent}% OFF`
+                  : `${offer.discountFixed}৳ OFF`}
               </p>
+              {offer.minOrder && (
+                <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-1">
+                  Min ৳{offer.minOrder}
+                </p>
+              )}
             </div>
           ))}
         </div>

@@ -8,9 +8,14 @@ import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 
 export default function Navbar() {
-  const role = useAuthRole();
+  const role = "admin" as string; // replace with useAuthRole() later
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Hide navbar inside admin panel (admin has its own layout)
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -19,22 +24,7 @@ export default function Navbar() {
     { label: "Branches", href: "/branches" },
     { label: "About Us", href: "/about" },
     { label: "Book Now", href: "/bookings" },
-    { label: "Cart", href: "/cart" },
   ];
-
-  const roleLinks =
-    role === "user"
-      ? [
-          { label: "My Orders", href: "/user/order" },
-          { label: "Bookings", href: "/user/bookings" },
-        ]
-      : role === "admin"
-      ? [
-          { label: "Dashboard", href: "/admin/dashboard" },
-          { label: "Orders", href: "/admin/orders" },
-          { label: "Foods", href: "/admin/foods" },
-        ]
-      : [];
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -69,23 +59,19 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {roleLinks.map((item) => (
+          {/* Admin Dashboard - Desktop */}
+          {role === "admin" && (
             <Link
-              key={item.href}
-              href={item.href}
-              className={`px-1 py-2 rounded-md transition ${
-                pathname === item.href
-                  ? "bg-yellow-400 text-white"
-                  : "text-gray-700 hover:text-yellow-500 hover:bg-yellow-100"
-              }`}
+              href="/admin"
+              className="px-3 py-2 rounded-md text-gray-700 hover:text-yellow-500 hover:bg-yellow-100 font-medium"
             >
-              {item.label}
+              Dashboard
             </Link>
-          ))}
+          )}
 
           <Link
-            href="/order"
-            className="bg-yellow-400 hover:bg-yellow-500 text-white px-5 py-2 rounded-full font-semibold transition"
+            href="/cart"
+            className="bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2 rounded-full font-semibold transition"
           >
             Order Now
           </Link>
@@ -100,13 +86,22 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="md:hidden text-2xl text-gray-700"
-        >
-          <HiMenu />
-        </button>
+        {/* Mobile Icons */}
+        <div className="md:hidden flex items-center gap-4">
+          <Link
+            href="/cart"
+            className="text-2xl text-gray-700 hover:text-yellow-500 transition"
+            title="Cart"
+          >
+            🛒
+          </Link>
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="text-2xl text-gray-700"
+          >
+            <HiMenu />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Sidebar */}
@@ -136,7 +131,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex flex-col p-5 gap-4">
-          {navItems.concat(roleLinks).map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -152,11 +147,11 @@ export default function Navbar() {
           ))}
 
           <Link
-            href="/order"
+            href="/cart"
             onClick={() => setSidebarOpen(false)}
-            className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-white px-5 py-2 rounded-full font-semibold text-center transition"
+            className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2 rounded-full font-semibold text-center transition"
           >
-            Order Now
+            Cart
           </Link>
 
           {!role && (
@@ -166,6 +161,17 @@ export default function Navbar() {
               className="mt-2 text-gray-700 hover:text-yellow-500 font-medium transition text-center"
             >
               Login
+            </Link>
+          )}
+
+          {/* Admin Dashboard - Mobile */}
+          {role === "admin" && (
+            <Link
+              href="/admin"
+              onClick={() => setSidebarOpen(false)}
+              className="mt-2 text-gray-700 hover:text-yellow-500 font-medium transition text-center"
+            >
+              Dashboard
             </Link>
           )}
         </div>

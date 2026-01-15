@@ -38,3 +38,14 @@ export const useMenuCategory = () =>
 export const useMenuLoading = () =>
   useAppSelector((state) => state.menu.loading);
 export const useMenuError = () => useAppSelector((state) => state.menu.error);
+
+// Offers selectors
+export const useOffers = () => useAppSelector((state) => state.offers.offers);
+export const useAppliedCoupon = () =>
+  useAppSelector((state) => state.offers.appliedCoupon);
+export const useDiscountAmount = () =>
+  useAppSelector((state) => state.offers.discountAmount);
+export const useActiveOffers = () =>
+  useAppSelector((state) =>
+    state.offers.offers.filter((offer) => offer.active)
+  );

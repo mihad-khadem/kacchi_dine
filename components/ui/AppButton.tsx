@@ -19,9 +19,9 @@ export default function AppButton({
 }: AppButtonProps) {
   const variants = {
     primary:
-      "bg-yellow-400 text-white hover:bg-yellow-500 shadow-md hover:shadow-lg",
+      "bg-yellow-400 text-black hover:bg-yellow-500 shadow-md hover:shadow-lg",
     outline:
-      "bg-yellow-400 border-2 border-white text-white hover:bg-white hover:text-yellow-500",
+      "bg-yellow-400 border-2 border-white text-black hover:bg-white hover:text-yellow-500",
     soft: "bg-yellow-100 text-yellow-700 hover:bg-yellow-200",
   };
 

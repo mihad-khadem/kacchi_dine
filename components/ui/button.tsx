@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
 
         brand:
-          "bg-yellow-400 text-white hover:bg-yellow-500 active:bg-yellow-600 focus-visible:ring-yellow-400",
+          "bg-yellow-400 text-black hover:bg-yellow-500 active:bg-yellow-600 focus-visible:ring-yellow-400",
 
         destructive:
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",

@@ -1,39 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { HeadingFont } from "../ui/headingFont";
-
-const foods = [
-  {
-    id: 1,
-    name: "Classic Kacchi Biryani",
-    price: 450,
-    image: "/kacchi_logo.jpeg",
-    tag: "Best Seller",
-  },
-  {
-    id: 2,
-    name: "Beef Kacchi",
-    price: 520,
-    image: "/kacchi_logo.jpeg",
-    tag: "Popular",
-  },
-  {
-    id: 3,
-    name: "Chicken Kacchi",
-    price: 400,
-    image: "/kacchi_logo.jpeg",
-    tag: "Trending",
-  },
-  {
-    id: 4,
-    name: "Borhani",
-    price: 120,
-    image: "/kacchi_logo.jpeg",
-    tag: "Must Try",
-  },
-];
+import { useMenuItems } from "@/redux/hooks";
 
 export default function PopularFoods() {
+  const menuItems = useMenuItems();
+
+  // Get top 4 popular items (slice to show 4 items)
+  const popularFoods = menuItems.slice(0, 4);
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">
       <div className="flex justify-between items-center mb-8">
@@ -47,7 +23,7 @@ export default function PopularFoods() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {foods.map((food) => (
+        {popularFoods.map((food) => (
           <div
             key={food.id}
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden border border-yellow-100"
@@ -61,7 +37,7 @@ export default function PopularFoods() {
               />
 
               <span className="absolute top-3 left-3 bg-yellow-400 text-black text-xs px-3 py-1 rounded-full font-semibold shadow">
-                {food.tag}
+                Popular
               </span>
             </div>
 
@@ -69,11 +45,15 @@ export default function PopularFoods() {
               <h3 className="text-lg font-bold text-gray-900">{food.name}</h3>
 
               <p className="text-yellow-500 font-bold text-xl mt-2">
-                ৳{food.price}
+                ৳
+                {food.prices?.one ||
+                  food.prices?.three ||
+                  food.prices?.five ||
+                  0}
               </p>
 
               <Link
-                href={`/order?item=${food.id}`}
+                href={`/menu/${food.slug}`}
                 className="inline-block mt-4 bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-full font-semibold transition shadow"
               >
                 Order

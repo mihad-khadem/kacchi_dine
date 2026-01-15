@@ -64,8 +64,8 @@ export default function HeroCarousel() {
                   {slide.subtitle}
                 </p>
                 <Link
-                  href="/order"
-                  className="bg-yellow-400 hover:bg-yellow-500 text-white px-8 py-3 rounded-full text-lg font-semibold transition"
+                  href="/menu"
+                  className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-3 rounded-full text-lg font-semibold transition"
                 >
                   Order Now
                 </Link>

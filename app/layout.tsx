@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Providers from "@/redux/Providers";
-import Navbar from "@/components/layout/Navbar";
+// import Navbar from "@/components/layout/Navbar"; // Navbar is in UserLayout
 // import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 
@@ -60,9 +60,7 @@ export default function RootLayout({
         className={`${inter.className} bg-[#fffaf5] text-gray-900 min-h-screen flex flex-col`}
       >
         <Providers>
-          <Navbar />
           <main className="flex-1">{children}</main>
-          {/* <Footer /> */}
         </Providers>
       </body>
     </html>

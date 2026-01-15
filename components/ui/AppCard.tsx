@@ -56,7 +56,7 @@ export default function AppCard({
             />
 
             {badge && (
-              <span className="absolute top-3 left-3 bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+              <span className="absolute top-3 left-3 bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full shadow">
                 {badge}
               </span>
             )}
