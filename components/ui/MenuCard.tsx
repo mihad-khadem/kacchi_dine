@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AppButton from "./AppButton";
 import Image from "next/image";
+
 interface MenuItem {
   id: number;
   name: string;
@@ -55,12 +56,11 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item }) => (
           View Details
         </button>
       </Link>
-      <AppButton
-        href={`/order?item=${item.id}`}
-        className="flex-1 py-2 px-3 sm:px-4 text-sm sm:text-base"
-      >
-        Order Now
-      </AppButton>
+      <Link href={`/menu/${item.slug}`} className="flex-1">
+        <AppButton className="w-full py-2 px-3 sm:px-4 text-sm sm:text-base">
+          Order Now
+        </AppButton>
+      </Link>
     </div>
   </div>
 );

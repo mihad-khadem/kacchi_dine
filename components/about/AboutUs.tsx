@@ -12,9 +12,9 @@ export const AboutUs = () => {
             <span className="text-yellow-400"> We serve emotions.</span>
           </h1>
           <p className="mt-6 text-neutral-600 dark:text-neutral-400 text-lg">
-            Kacchi Dine was born from a simple idea — bring authentic Chatgaiya
-            Kacchi Biryani to every home with uncompromising quality, hygiene,
-            and love.
+            Kacchi Dine was born from a simple idea — bring authentic
+            Bangladeshi Kacchi Biryani to every home with uncompromising
+            quality, hygiene, and love.
           </p>
         </div>
 

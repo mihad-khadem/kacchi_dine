@@ -45,7 +45,7 @@ export const OurValue = () => {
         <ValueCard
           icon={<MapPin />}
           title="Multiple Branches"
-          desc="Serving Kacchi lovers across the city."
+          desc="Serving Kacchi lovers across the world."
         />
       </div>
     </>

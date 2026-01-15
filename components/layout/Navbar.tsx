@@ -1,15 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useAuthRole } from "@/redux/hooks";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 
 export default function Navbar() {
-  const role = useSelector((state: RootState) => state.auth.role);
+  const role = useAuthRole();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 

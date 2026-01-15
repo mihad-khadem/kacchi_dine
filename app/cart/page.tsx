@@ -1,11 +1,11 @@
-// order page
 "use client";
 
+import UserLayout from "@/components/layout/UserLayout";
 import { useCart, useCartTotal, useAppDispatch } from "@/redux/hooks";
 import { removeFromCart, clearCart } from "@/redux/slices/cartSlice";
 import Link from "next/link";
 
-const OrderPage = () => {
+const CartPage = () => {
   const { items, branch } = useCart();
   const total = useCartTotal();
   const dispatch = useAppDispatch();
@@ -13,14 +13,14 @@ const OrderPage = () => {
   if (items.length === 0) {
     return (
       <div className="max-w-4xl mx-auto p-6 my-16">
-        <h1 className="text-3xl font-bold mb-6">Your Order</h1>
+        <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
         <div className="bg-yellow-50 border border-yellow-200 p-8 rounded-lg text-center">
           <p className="text-gray-600 mb-4">Your cart is empty</p>
           <Link
             href="/menu"
             className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-lg font-semibold transition"
           >
-            Continue Shopping
+            Start Shopping
           </Link>
         </div>
       </div>
@@ -30,10 +30,10 @@ const OrderPage = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 my-10">
       <h1 className="text-3xl font-bold mb-6">
-        Your Order {branch && `(${branch})`}
+        Your Cart {branch && `(${branch})`}
       </h1>
 
-      {/* Order Items */}
+      {/* Cart Items */}
       <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
         <div className="divide-y">
           {items.map((item) => (
@@ -72,7 +72,7 @@ const OrderPage = () => {
         </div>
       </div>
 
-      {/* Order Summary */}
+      {/* Cart Summary */}
       <div className="bg-gray-50 rounded-lg p-6 mb-6">
         <div className="space-y-2 mb-4">
           <div className="flex justify-between">
@@ -105,11 +105,11 @@ const OrderPage = () => {
           Continue Shopping
         </Link>
         <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-bold transition">
-          Checkout
+          Proceed to Checkout
         </button>
       </div>
     </div>
   );
 };
 
-export default OrderPage;
+export default CartPage;
