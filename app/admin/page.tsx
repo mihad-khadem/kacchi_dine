@@ -97,7 +97,7 @@ export default function AdminPage() {
   const COLORS = ["#FACC15", "#34D399", "#3B82F6", "#F87171", "#A78BFA"];
 
   const stackedBarData = branches.map((branch) => {
-    const data: any = { branch: branch.name };
+    const data: any = { branch: branch.BranchName };
     categoryStats.forEach((cat) => {
       data[cat.name] = Math.floor(Math.random() * 50) + 10;
     });
