@@ -175,9 +175,10 @@ export default function CheckoutForm() {
 
       <AppAlert
         open={alertOpen}
-        onOpenChange={setAlertOpen}
         title="Order Placed Successfully!"
-        description="Your order has been placed. You will receive a confirmation email shortly."
+        message="Your order has been placed. You will receive a confirmation email shortly."
+        duration={1500}
+        onClose={() => setAlertOpen(false)}
       />
     </form>
   );
