@@ -76,9 +76,9 @@ export default function Navbar() {
             Order Now
           </Link>
 
-          {!role && (
+          {role && (
             <Link
-              href="/auth/login"
+              href="/login"
               className="text-gray-700 hover:text-yellow-500 font-medium transition"
             >
               Login
