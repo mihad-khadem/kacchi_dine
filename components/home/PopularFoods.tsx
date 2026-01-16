@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeadingFont } from "../ui/headingFont";
 import { useMenuItems } from "@/redux/hooks";
+import { getDisplayPrice } from "@/lib/helpers/helper";
 
 export default function PopularFoods() {
   const menuItems = useMenuItems();
@@ -45,11 +46,7 @@ export default function PopularFoods() {
               <h3 className="text-lg font-bold text-gray-900">{food.name}</h3>
 
               <p className="text-yellow-500 font-bold text-xl mt-2">
-                ৳
-                {food.prices?.one ||
-                  food.prices?.three ||
-                  food.prices?.five ||
-                  0}
+                ৳{getDisplayPrice(food.prices)}
               </p>
 
               <Link
