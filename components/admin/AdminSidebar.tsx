@@ -27,7 +27,8 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
   const menuItems = [
     { label: "Dashboard", href: "/admin", icon: "🏠" },
-    { label: "Quick Overviews", href: "/admin/dashboard", icon: "📊" },
+    { label: "Quick Actions", href: "/admin/dashboard", icon: "📊" },
+    { label: "CMS", href: "/admin/cms", icon: "📝" },
     { label: "Foods", href: "/admin/foods", icon: "🍕" },
     { label: "Orders", href: "/admin/orders", icon: "📦" },
     { label: "Offers", href: "/admin/offers", icon: "🎁" },
@@ -41,7 +42,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
   return (
     <>
-      {/* ===================== DESKTOP SIDEBAR (UNCHANGED BEHAVIOR) ===================== */}
+      {/** DESKTOP SIDEBAR */}
       <aside
         className={`hidden md:flex fixed md:sticky top-0 h-screen bg-white shadow-md flex-col gap-2 border-r border-gray-200 overflow-y-auto transition-all duration-300 z-30 ${
           collapsed ? "w-20" : "w-64"

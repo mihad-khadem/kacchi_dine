@@ -56,7 +56,7 @@ export default function PopularFoods() {
                 href={`/menu/${food.slug}`}
                 className="inline-block mt-4 bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-full font-semibold transition shadow"
               >
-                Order
+                Order Now
               </Link>
             </div>
           </div>

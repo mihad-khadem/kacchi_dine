@@ -30,7 +30,8 @@ export default function FoodCard({
         price,
         quantity: 1,
         persons: 1,
-        image,
+        image: image ?? "/public/kacchi_logo.jpg",
+        branch: "default",
       })
     );
   };
