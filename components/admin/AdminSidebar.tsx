@@ -44,7 +44,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
     <>
       {/** DESKTOP SIDEBAR */}
       <aside
-        className={`hidden md:flex fixed md:sticky top-0 h-screen bg-white shadow-md flex-col gap-2 border-r border-gray-200 overflow-y-auto transition-all duration-300 z-30 ${
+        className={`hidden md:flex  md:sticky top-0 min-h-screen bg-white shadow-md flex-col gap-2 border-r border-gray-200 overflow-y-auto transition-all duration-300 z-30 ${
           collapsed ? "w-20" : "w-64"
         }`}
       >
@@ -98,7 +98,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         </div> */}
       </aside>
 
-      {/* ===================== MOBILE SIDEBAR (CONTROLLED) ===================== */}
+      {/*MOBILE SIDEBAR (CONTROLLED)*/}
       {isOpen && (
         <>
           {/* Overlay */}

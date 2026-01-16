@@ -15,6 +15,23 @@ import {
   mockUserStats,
   mockDashboardMetrics,
 } from "@/lib/mockData/admin";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+  AreaChart,
+  Area,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
 
 export default function AdminPage() {
   const menuItems = useMenuItems();
@@ -42,7 +59,7 @@ export default function AdminPage() {
   const dashboardMetrics = mockDashboardMetrics;
   const userStats = mockUserStats;
 
-  // Chart data for categories
+  // Category Stats
   const categoryStats = [
     {
       name: "Kacchi",
@@ -61,8 +78,37 @@ export default function AdminPage() {
       count: menuItems.filter((i) => i.category === "Polao").length,
     },
   ];
-
   const totalItems = categoryStats.reduce((sum, cat) => sum + cat.count, 0);
+
+  // Advanced Chart Data
+  const monthlyRevenueData = [
+    { month: "Jan", revenue: 120000, orders: 200, users: 150 },
+    { month: "Feb", revenue: 150000, orders: 240, users: 180 },
+    { month: "Mar", revenue: 170000, orders: 280, users: 200 },
+    { month: "Apr", revenue: 140000, orders: 220, users: 170 },
+    { month: "May", revenue: 180000, orders: 300, users: 210 },
+  ];
+
+  const ordersByBranch = branches.map((b) => ({
+    branch: b.name,
+    orders: Math.floor(Math.random() * 200) + 50,
+  }));
+
+  const COLORS = ["#FACC15", "#34D399", "#3B82F6", "#F87171", "#A78BFA"];
+
+  const stackedBarData = branches.map((branch) => {
+    const data: any = { branch: branch.name };
+    categoryStats.forEach((cat) => {
+      data[cat.name] = Math.floor(Math.random() * 50) + 10;
+    });
+    return data;
+  });
+
+  const goalTrackingData = [
+    { goal: "Daily Orders", actual: 80, target: 100 },
+    { goal: "Monthly Revenue", actual: 140000, target: 150000 },
+    { goal: "New Users", actual: 250, target: 300 },
+  ];
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
@@ -76,7 +122,7 @@ export default function AdminPage() {
         </p>
       </div>
 
-      {/* Main Stats Grid */}
+      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-400">
           <div className="flex items-center justify-between">
@@ -187,76 +233,139 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Charts Section */}
+      {/* ----------------- Advanced Charts Section ----------------- */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        {/* Category Distribution Bar Chart */}
+        {/* Category Distribution */}
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold text-gray-800 mb-6">
-            Category Distribution (Bar Chart)
+            Category Distribution
           </h2>
-          <div className="space-y-4">
-            {categoryStats.map((stat) => {
-              const percentage =
-                totalItems > 0 ? (stat.count / totalItems) * 100 : 0;
-              return (
-                <div key={stat.name}>
-                  <div className="flex justify-between mb-2">
-                    <span className="font-semibold text-gray-700">
-                      {stat.name}
-                    </span>
-                    <span className="text-gray-600">
-                      {stat.count} items ({percentage.toFixed(0)}%)
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
-                    <div
-                      className="bg-yellow-400 h-3 rounded-full transition-all"
-                      style={{ width: `${percentage}%` }}
-                    ></div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={categoryStats}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="count" fill="#FACC15" />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
-        {/* Pie Chart Representation */}
+        {/* Orders by Branch */}
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold text-gray-800 mb-6">
-            Sales by Category (Pie Chart)
+            Orders by Branch
           </h2>
-          <div className="flex items-center justify-center">
-            <div className="space-y-3">
-              {categoryStats.map((stat, idx) => {
-                const colors = [
-                  "bg-yellow-400",
-                  "bg-green-400",
-                  "bg-blue-400",
-                  "bg-red-400",
-                ];
-                const percentage =
-                  totalItems > 0 ? (stat.count / totalItems) * 100 : 0;
-                return (
-                  <div key={stat.name} className="flex items-center gap-3">
-                    <div
-                      className={`w-4 h-4 rounded-full ${
-                        colors[idx % colors.length]
-                      }`}
-                    ></div>
-                    <span className="text-gray-700">
-                      {stat.name}: {percentage.toFixed(0)}%
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                data={ordersByBranch}
+                dataKey="orders"
+                nameKey="branch"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                innerRadius={40}
+                label
+              >
+                {ordersByBranch.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Recent Orders and Top Items */}
+      {/* Combined Revenue vs Orders vs Users */}
+      <div className="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-6">
+          Revenue vs Orders vs Users
+        </h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={monthlyRevenueData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="revenue"
+              stroke="#F59E0B"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="orders"
+              stroke="#3B82F6"
+              strokeWidth={2}
+            />
+            <Line
+              type="monotone"
+              dataKey="users"
+              stroke="#10B981"
+              strokeWidth={2}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Stacked Bar Chart for Categories per Branch */}
+      <div className="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">
+          Food Categories per Branch
+        </h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={stackedBarData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="branch" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            {categoryStats.map((cat, idx) => (
+              <Bar
+                key={cat.name}
+                dataKey={cat.name}
+                stackId="a"
+                fill={COLORS[idx % COLORS.length]}
+              />
+            ))}
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Goal Tracking */}
+      <div className="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Goal Tracking</h2>
+        {goalTrackingData.map((goal) => {
+          const percentage = Math.min((goal.actual / goal.target) * 100, 100);
+          return (
+            <div key={goal.goal} className="mb-4">
+              <div className="flex justify-between mb-1">
+                <span className="text-gray-700 font-semibold">{goal.goal}</span>
+                <span className="text-gray-600">
+                  {goal.actual}/{goal.target}
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 h-3 rounded-full">
+                <div
+                  className="h-3 rounded-full bg-green-400 transition-all"
+                  style={{ width: `${percentage}%` }}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ----------------- Existing Tables ----------------- */}
+      {/* Recent Orders */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-        {/* Recent Orders */}
         <div className="lg:col-span-2 bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-800">Recent Orders</h2>
@@ -267,7 +376,6 @@ export default function AdminPage() {
               View All →
             </Link>
           </div>
-
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-gray-100 border-b">
@@ -290,61 +398,57 @@ export default function AdminPage() {
                 </tr>
               </thead>
               <tbody>
-                {recentOrders
-                  .slice(0, 5)
-                  .map((order: (typeof mockRecentOrders)[number]) => (
-                    <tr key={order.id} className="border-b hover:bg-gray-50">
-                      <td className="px-4 py-3 font-semibold text-gray-800">
-                        {order.id}
-                      </td>
-                      <td className="px-4 py-3 text-gray-700">
-                        {order.customer}
-                      </td>
-                      <td className="px-4 py-3 font-bold text-gray-800">
-                        ৳{order.total}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                            order.status === "Delivered"
-                              ? "bg-green-100 text-green-800"
-                              : order.status === "Processing"
+                {recentOrders.slice(0, 5).map((order) => (
+                  <tr key={order.id} className="border-b hover:bg-gray-50">
+                    <td className="px-4 py-3 font-semibold text-gray-800">
+                      {order.id}
+                    </td>
+                    <td className="px-4 py-3 text-gray-700">
+                      {order.customer}
+                    </td>
+                    <td className="px-4 py-3 font-bold text-gray-800">
+                      ৳{order.total}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                          order.status === "Delivered"
+                            ? "bg-green-100 text-green-800"
+                            : order.status === "Processing"
                               ? "bg-blue-100 text-blue-800"
                               : order.status === "Pending"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-red-100 text-red-800"
-                          }`}
-                        >
-                          {order.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        <button
-                          onClick={() =>
-                            setEditingId(
-                              editingId === order.id ? null : order.id
-                            )
-                          }
-                          className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
-                        >
-                          {editingId === order.id ? "Cancel" : "View"}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <button
+                        onClick={() =>
+                          setEditingId(editingId === order.id ? null : order.id)
+                        }
+                        className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
+                      >
+                        {editingId === order.id ? "Cancel" : "View"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* Top Items by Price */}
+        {/* Top Premium Items */}
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold text-gray-800 mb-6">
             Top Premium Items
           </h2>
           <div className="space-y-3">
             {[...menuItems]
-              ?.sort((a, b) => getPrice(b) - getPrice(a))
+              .sort((a, b) => getPrice(b) - getPrice(a))
               .slice(0, 5)
               .map((item) => (
                 <div
@@ -377,7 +481,6 @@ export default function AdminPage() {
             View All →
           </Link>
         </div>
-
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="bg-gray-100 border-b">
@@ -403,45 +506,39 @@ export default function AdminPage() {
               </tr>
             </thead>
             <tbody>
-              {recentBookings
-                .slice(0, 5)
-                .map((booking: (typeof mockRecentBookings)[number]) => (
-                  <tr key={booking.id} className="border-b hover:bg-gray-50">
-                    <td className="px-4 py-3 font-semibold text-gray-800">
-                      {booking.customerName}
-                    </td>
-                    <td className="px-4 py-3 text-gray-700">
-                      {booking.branch}
-                    </td>
-                    <td className="px-4 py-3 text-gray-700">{booking.date}</td>
-                    <td className="px-4 py-3 text-gray-700">
-                      {booking.guests}
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          booking.status === "Confirmed"
-                            ? "bg-green-100 text-green-800"
-                            : booking.status === "Pending"
+              {recentBookings.slice(0, 5).map((booking) => (
+                <tr key={booking.id} className="border-b hover:bg-gray-50">
+                  <td className="px-4 py-3 font-semibold text-gray-800">
+                    {booking.customerName}
+                  </td>
+                  <td className="px-4 py-3 text-gray-700">{booking.branch}</td>
+                  <td className="px-4 py-3 text-gray-700">{booking.date}</td>
+                  <td className="px-4 py-3 text-gray-700">{booking.guests}</td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        booking.status === "Confirmed"
+                          ? "bg-green-100 text-green-800"
+                          : booking.status === "Pending"
                             ? "bg-yellow-100 text-yellow-800"
                             : "bg-gray-100 text-gray-800"
-                        }`}
-                      >
-                        {booking.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      <button
-                        onClick={() =>
-                          alert(`Booking ${booking.id} action triggered`)
-                        }
-                        className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
-                      >
-                        Approve
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                      }`}
+                    >
+                      {booking.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    <button
+                      onClick={() =>
+                        alert(`Booking ${booking.id} action triggered`)
+                      }
+                      className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
+                    >
+                      Approve
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

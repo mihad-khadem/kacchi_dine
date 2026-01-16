@@ -55,7 +55,7 @@ export default function AdminDashboardPage() {
           Welcome, {user?.name || "Admin"}! 👋
         </h1>
         <p className="text-gray-600">
-          Here's what's happening with your business today.
+          Quick overview of your restaurant's performance and activities.
         </p>
       </div>
 
@@ -230,8 +230,8 @@ export default function AdminDashboardPage() {
                           order.status === "Delivered"
                             ? "bg-green-100 text-green-800"
                             : order.status === "Processing"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-yellow-100 text-yellow-800"
+                              ? "bg-blue-100 text-blue-800"
+                              : "bg-yellow-100 text-yellow-800"
                         }`}
                       >
                         {order.status}
@@ -303,8 +303,8 @@ export default function AdminDashboardPage() {
                           booking.status === "Confirmed"
                             ? "bg-green-100 text-green-800"
                             : booking.status === "Pending"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : "bg-red-100 text-red-800"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-red-100 text-red-800"
                         }`}
                       >
                         {booking.status}
