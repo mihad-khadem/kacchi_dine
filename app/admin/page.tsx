@@ -90,7 +90,7 @@ export default function AdminPage() {
   ];
 
   const ordersByBranch = branches.map((b) => ({
-    branch: b.name,
+    branch: b.BranchName,
     orders: Math.floor(Math.random() * 200) + 50,
   }));
 
