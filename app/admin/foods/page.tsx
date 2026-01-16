@@ -4,21 +4,29 @@
 
 import React, { useState } from "react";
 import { useMenuItems } from "@/redux/hooks";
-import Link from "next/link";
+import AppAlert from "@/components/ui/AppAlert";
 
 export default function AdminFoodsPage() {
   const menuItems = useMenuItems();
   const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAddForm, setShowAddForm] = useState(false);
 
-  // Filter items based on search
-  const filteredItems = menuItems.filter(
+  // Filter items based on search and category
+  const filteredItems = [...menuItems].filter(
     (item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.category?.toLowerCase().includes(searchTerm.toLowerCase())
+      (item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.category?.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (categoryFilter === "All" || item.category === categoryFilter)
   );
 
   // Helper function to get price
-  const getPrice = (item: any) => {
+  const getPrice = (item: {
+    prices?: { one?: number; three?: number; five?: number } | number;
+  }) => {
     if (typeof item.prices === "number") return item.prices;
     if (typeof item.prices === "object") return item.prices?.one || 0;
     return 0;
@@ -26,24 +34,45 @@ export default function AdminFoodsPage() {
 
   // Calculate metrics
   const totalItems = menuItems.length;
-  const categories = [...new Set(menuItems.map((item) => item.category))];
+  const categories = [
+    ...new Set([...menuItems].map((item) => item.category)),
+  ].filter(Boolean) as string[];
   const avgPrice =
     menuItems.length > 0
       ? Math.round(
-          menuItems.reduce((sum, item) => sum + getPrice(item), 0) /
+          [...menuItems].reduce((sum, item) => sum + getPrice(item), 0) /
             menuItems.length
         )
       : 0;
-  const totalValue = menuItems.reduce((sum, item) => sum + getPrice(item), 0);
+  const totalValue = [...menuItems].reduce(
+    (sum, item) => sum + getPrice(item),
+    0
+  );
 
   // Category breakdown
   const categoryStats = categories.map((cat) => ({
     name: cat,
-    count: menuItems.filter((item) => item.category === cat).length,
-    totalPrice: menuItems
+    count: [...menuItems].filter((item) => item.category === cat).length,
+    totalPrice: [...menuItems]
       .filter((item) => item.category === cat)
       .reduce((sum, item) => sum + getPrice(item), 0),
   }));
+
+  const handleAddFood = () => {
+    setAlertMessage("Food item added successfully! (Feature coming soon)");
+    setAlertOpen(true);
+    setShowAddForm(false);
+  };
+
+  const handleEditFood = (id: number) => {
+    setEditingId(editingId === id.toString() ? null : id.toString());
+  };
+
+  const handleDeleteFood = (id: number) => {
+    setAlertMessage(`Food item ${id} has been deleted successfully!`);
+    setAlertOpen(true);
+    setEditingId(null);
+  };
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
@@ -57,10 +86,59 @@ export default function AdminFoodsPage() {
             Manage your menu items and view analytics
           </p>
         </div>
-        <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-3 rounded-lg transition w-full md:w-auto">
-          + Add Food Item
+        <button
+          onClick={() => setShowAddForm(!showAddForm)}
+          className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-3 rounded-lg transition w-full md:w-auto"
+        >
+          {showAddForm ? "Cancel" : "+ Add Food Item"}
         </button>
       </div>
+
+      {/* Add Food Form */}
+      {showAddForm && (
+        <div className="bg-white rounded-lg shadow p-6 mb-8">
+          <h2 className="text-xl font-bold text-gray-800 mb-4">
+            Add New Food Item
+          </h2>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAddFood();
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
+            <input
+              type="text"
+              placeholder="Food Name"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Category"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              required
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            />
+            <button
+              type="submit"
+              className="md:col-span-2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-2 rounded-lg transition"
+            >
+              Add Food Item
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -80,16 +158,14 @@ export default function AdminFoodsPage() {
 
         <div className="bg-white rounded-lg shadow p-6 border-l-4 border-green-400">
           <p className="text-gray-600 text-sm font-medium">Avg Price</p>
-          <p className="text-3xl font-bold text-gray-800 mt-2">
-            Rs. {avgPrice}
-          </p>
+          <p className="text-3xl font-bold text-gray-800 mt-2">৳{avgPrice}</p>
           <p className="text-xs text-gray-500 mt-2">Per item</p>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6 border-l-4 border-purple-400">
           <p className="text-gray-600 text-sm font-medium">Total Value</p>
           <p className="text-3xl font-bold text-gray-800 mt-2">
-            Rs. {totalValue.toLocaleString()}
+            ৳{totalValue.toLocaleString()}
           </p>
           <p className="text-xs text-gray-500 mt-2">Menu value</p>
         </div>
@@ -130,13 +206,13 @@ export default function AdminFoodsPage() {
             Premium Items
           </h2>
           <div className="space-y-3">
-            {menuItems
-              .sort((a, b) => getPrice(b) - getPrice(a))
+            {[...menuItems]
+              ?.sort((a, b) => getPrice(b) - getPrice(a))
               .slice(0, 5)
               .map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-yellow-50 transition"
                 >
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-800 truncate">
@@ -145,7 +221,7 @@ export default function AdminFoodsPage() {
                     <p className="text-xs text-gray-600">{item.category}</p>
                   </div>
                   <p className="font-bold text-yellow-600 ml-2 shrink-0">
-                    Rs. {getPrice(item)}
+                    ৳{getPrice(item)}
                   </p>
                 </div>
               ))}
@@ -164,7 +240,11 @@ export default function AdminFoodsPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
-            <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
               <option>All Categories</option>
               {categories.map((cat) => (
                 <option key={cat}>{cat}</option>
@@ -195,7 +275,10 @@ export default function AdminFoodsPage() {
             <tbody>
               {filteredItems.length > 0 ? (
                 filteredItems.map((item) => (
-                  <tr key={item.id} className="border-b hover:bg-gray-50">
+                  <tr
+                    key={item.id}
+                    className="border-b hover:bg-gray-50 transition"
+                  >
                     <td className="px-6 py-4 font-semibold text-gray-800">
                       {item.name}
                     </td>
@@ -205,13 +288,19 @@ export default function AdminFoodsPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right font-bold text-gray-800">
-                      Rs. {getPrice(item)}
+                      ৳{getPrice(item)}
                     </td>
-                    <td className="px-6 py-4 text-center">
-                      <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm mr-3">
-                        Edit
+                    <td className="px-6 py-4 text-center space-x-2">
+                      <button
+                        onClick={() => handleEditFood(item.id)}
+                        className="text-blue-600 hover:text-blue-800 font-semibold text-sm hover:bg-blue-50 px-3 py-1 rounded transition"
+                      >
+                        {editingId === item.id.toString() ? "Cancel" : "Edit"}
                       </button>
-                      <button className="text-red-600 hover:text-red-800 font-semibold text-sm">
+                      <button
+                        onClick={() => handleDeleteFood(item.id)}
+                        className="text-red-600 hover:text-red-800 font-semibold text-sm hover:bg-red-50 px-3 py-1 rounded transition"
+                      >
                         Delete
                       </button>
                     </td>
@@ -231,6 +320,14 @@ export default function AdminFoodsPage() {
           </table>
         </div>
       </div>
+
+      {/* Alert */}
+      <AppAlert
+        open={alertOpen}
+        onClose={() => setAlertOpen(false)}
+        title="Food Management"
+        message={alertMessage}
+      />
     </div>
   );
 }

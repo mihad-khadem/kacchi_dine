@@ -37,7 +37,8 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   }
 
   const menuItems = [
-    { label: "Dashboard", href: "/admin/dashboard", icon: "📊" },
+    { label: "Dashboard", href: "/admin", icon: "🏠" },
+    { label: "Quick Overviews", href: "/admin/dashboard", icon: "📊" },
     { label: "Foods", href: "/admin/foods", icon: "🍕" },
     { label: "Orders", href: "/admin/orders", icon: "📦" },
     { label: "Offers", href: "/admin/offers", icon: "🎁" },
