@@ -244,10 +244,11 @@ export default function AdminDashboardPage() {
             </table>
           </div>
         </div>
+        {/* Recent Reviews */}
       </div>
 
       {/* Secondary Grid - Bookings & Menu Items */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-8">
         {/* Recent Bookings - Replace with API after backend */}
         <div className="lg:col-span-2 bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-6">

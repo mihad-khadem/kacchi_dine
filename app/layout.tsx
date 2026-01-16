@@ -1,8 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Providers from "@/redux/Providers";
-// import Navbar from "@/components/layout/Navbar"; // Navbar is in UserLayout
-// import Footer from "@/components/layout/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 
   title: "Kacchi Dine – Authentic Kacchi Biryani",
   description:
-    "Order authentic Dhaka-style Kacchi Biryani, Borhani and more from Kacchi Dine. Fresh, hot & delivered fast.",
+    "Order authentic Bangladeshi-style Kacchi Biryani, Borhani and more from Kacchi Dine. Fresh, hot & delivered fast.",
 
   keywords: [
     "kacchi dine",
@@ -62,6 +61,7 @@ export default function RootLayout({
         <Providers>
           <main className="flex-1">{children}</main>
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
