@@ -3,7 +3,7 @@
 import { useAuthUser, useAppDispatch } from "@/redux/hooks";
 import { logout } from "@/redux/slices/authSlice";
 import Link from "next/link";
-import { HiMenu, HiBell } from "react-icons/hi";
+import { HiMenu, HiBell, HiHome } from "react-icons/hi";
 import { useEffect, useState } from "react";
 
 interface AdminTopbarProps {
@@ -53,7 +53,7 @@ export default function AdminTopbar({
           className="flex items-center gap-2 flex-1"
         >
           <span className="text-2xl">⚡</span>
-          <h1 className="text-lg md:text-2xl font-bold hidden sm:block">
+          <h1 className="text-lg md:text-2xl font-bold  sm:block">
             Admin Dashboard
           </h1>
         </Link>
@@ -77,6 +77,15 @@ export default function AdminTopbar({
           <HiBell className="text-xl md:text-2xl" />
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-600 rounded-full border border-white"></span>
         </button>
+        {/* back to home icon */}
+        <Link
+          href="/"
+          className="p-2 rounded-full hover:bg-yellow-500 transition text-black"
+        >
+          <span className="text-xl">
+            <HiHome />
+          </span>
+        </Link>
 
         {/* User avatar & name */}
         <div className="flex items-center gap-2 relative group">

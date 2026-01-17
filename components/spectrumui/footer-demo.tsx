@@ -22,8 +22,8 @@ import {
   Twitter,
 } from "lucide-react";
 
-export default function Footer() {
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
+export default function Footerdemo() {
+  const [isDarkMode, setIsDarkMode] = React.useState(true);
   const [isChatOpen, setIsChatOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -35,16 +35,15 @@ export default function Footer() {
   }, [isDarkMode]);
 
   return (
-    <footer className="relative border-t bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="relative border-t bg-background text-foreground transition-colors duration-300">
+      <div className="container mx-auto px-4 py-12 md:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          {/* Newsletter */}
           <div className="relative">
-            <h2 className="mb-4 text-2xl font-bold tracking-tight">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight">
               Stay Connected
             </h2>
-            <p className="mb-6 text-sm text-gray-600 dark:text-gray-400">
-              Subscribe to our newsletter for updates and exclusive offers.
+            <p className="mb-6 text-muted-foreground">
+              Join our newsletter for the latest updates and exclusive offers.
             </p>
             <form className="relative">
               <Input
@@ -55,45 +54,58 @@ export default function Footer() {
               <Button
                 type="submit"
                 size="icon"
-                className="absolute right-1 top-1 h-8 w-8 rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition-transform hover:scale-105"
+                className="absolute right-1 top-1 h-8 w-8 rounded-full bg-primary text-primary-foreground transition-transform hover:scale-105"
               >
                 <Send className="h-4 w-4" />
                 <span className="sr-only">Subscribe</span>
               </Button>
             </form>
-            <div className="absolute -right-4 top-0 h-24 w-24 rounded-full bg-yellow-200/30 blur-2xl" />
+            <div className="absolute -right-4 top-0 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
           </div>
-
-          {/* Quick Links */}
           <div>
             <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
             <nav className="space-y-2 text-sm">
-              {["Home", "About Us", "Menu", "Branches", "Contact"].map(
-                (link) => (
-                  <a
-                    key={link}
-                    href="#"
-                    className="block transition-colors hover:text-yellow-400"
-                  >
-                    {link}
-                  </a>
-                ),
-              )}
+              <a
+                href="#"
+                className="block transition-colors hover:text-primary"
+              >
+                Home
+              </a>
+              <a
+                href="#"
+                className="block transition-colors hover:text-primary"
+              >
+                About Us
+              </a>
+              <a
+                href="#"
+                className="block transition-colors hover:text-primary"
+              >
+                Services
+              </a>
+              <a
+                href="#"
+                className="block transition-colors hover:text-primary"
+              >
+                Products
+              </a>
+              <a
+                href="#"
+                className="block transition-colors hover:text-primary"
+              >
+                Contact
+              </a>
             </nav>
           </div>
-
-          {/* Contact Info */}
           <div>
             <h3 className="mb-4 text-lg font-semibold">Contact Us</h3>
             <address className="space-y-2 text-sm not-italic">
-              <p>Kacchi Dine Head Office</p>
-              <p>Agrabad Commercial Area, Agrabad, Chattogram, Bangladesh</p>
-              <p>Phone: +8801711-123456</p>
-              <p>Email: info@kacchidine.com</p>
+              <p>123 Innovation Street</p>
+              <p>Tech City, TC 12345</p>
+              <p>Phone: (123) 456-7890</p>
+              <p>Email: hello@example.com</p>
             </address>
           </div>
-
-          {/* Social & Dark Mode */}
           <div className="relative">
             <h3 className="mb-4 text-lg font-semibold">Follow Us</h3>
             <div className="mb-6 flex space-x-4">
@@ -109,10 +121,11 @@ export default function Footer() {
                       <span className="sr-only">Facebook</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Follow us on Facebook</TooltipContent>
+                  <TooltipContent>
+                    <p>Follow us on Facebook</p>
+                  </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -125,10 +138,11 @@ export default function Footer() {
                       <span className="sr-only">Twitter</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Follow us on Twitter</TooltipContent>
+                  <TooltipContent>
+                    <p>Follow us on Twitter</p>
+                  </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -141,10 +155,11 @@ export default function Footer() {
                       <span className="sr-only">Instagram</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Follow us on Instagram</TooltipContent>
+                  <TooltipContent>
+                    <p>Follow us on Instagram</p>
+                  </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -157,14 +172,19 @@ export default function Footer() {
                       <span className="sr-only">LinkedIn</span>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Connect with us on LinkedIn</TooltipContent>
+                  <TooltipContent>
+                    <p>Connect with us on LinkedIn</p>
+                  </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </div>
-
-            <div className="flex items-center space-x-2 mt-4">
+            <div className="flex items-center space-x-2">
               <Sun className="h-4 w-4" />
-              <Switch checked={isDarkMode} onCheckedChange={setIsDarkMode} />
+              <Switch
+                id="dark-mode"
+                checked={isDarkMode}
+                onCheckedChange={setIsDarkMode}
+              />
               <Moon className="h-4 w-4" />
               <Label htmlFor="dark-mode" className="sr-only">
                 Toggle dark mode
@@ -172,37 +192,31 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
-        {/* Footer Bottom */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 text-center md:flex-row">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            © 2026 Kacchi Dine. All rights reserved.
+          <p className="text-sm text-muted-foreground">
+            © 2024 Your Company. All rights reserved.
           </p>
           <nav className="flex gap-4 text-sm">
-            {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(
-              (link) => (
-                <a
-                  key={link}
-                  href="#"
-                  className="transition-colors hover:text-yellow-400"
-                >
-                  {link}
-                </a>
-              ),
-            )}
+            <a href="#" className="transition-colors hover:text-primary">
+              Privacy Policy
+            </a>
+            <a href="#" className="transition-colors hover:text-primary">
+              Terms of Service
+            </a>
+            <a href="#" className="transition-colors hover:text-primary">
+              Cookie Settings
+            </a>
           </nav>
         </div>
       </div>
-
-      {/* Floating Chat */}
       <Button
         onClick={() => setIsChatOpen(!isChatOpen)}
-        className="fixed bottom-4 right-4 z-50 rounded-full shadow-lg bg-yellow-400 text-black hover:bg-yellow-500"
+        className="fixed bottom-4 right-4 z-50 rounded-full shadow-lg"
       >
         {isChatOpen ? "Close Chat" : "Open Chat"}
       </Button>
       {isChatOpen && (
-        <div className="fixed bottom-20 right-4 z-50 w-80 rounded-lg border bg-white dark:bg-gray-800 p-4 shadow-lg">
+        <div className="fixed bottom-20 right-4 z-50 w-80 rounded-lg border bg-background p-4 shadow-lg">
           <h4 className="mb-4 text-lg font-semibold">Live Chat</h4>
           <div className="mb-4 h-40 overflow-y-auto rounded border p-2">
             <p className="mb-2">
