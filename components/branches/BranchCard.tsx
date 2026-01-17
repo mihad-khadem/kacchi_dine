@@ -15,6 +15,10 @@ export default function BranchCard({
   isActive,
   highlight,
   slug,
+  id,
+  Area,
+  division,
+  location,
 }: TBranch) {
   return (
     <AppCard className="flex flex-col justify-between h-full">

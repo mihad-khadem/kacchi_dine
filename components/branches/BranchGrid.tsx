@@ -86,6 +86,10 @@ export default function BranchesGridPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.map((b) => (
                   <BranchCard
+                    Area={b.Area}
+                    location={b.location}
+                    division={b.division}
+                    id={b.id}
                     key={b.id}
                     slug={b.slug}
                     BranchName={b.BranchName}
