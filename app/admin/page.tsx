@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   useMenuItems,
@@ -89,20 +89,26 @@ export default function AdminPage() {
     { month: "May", revenue: 180000, orders: 300, users: 210 },
   ];
 
-  const ordersByBranch = branches.map((b) => ({
-    branch: b.BranchName,
-    orders: Math.floor(Math.random() * 200) + 50,
-  }));
-
   const COLORS = ["#FACC15", "#34D399", "#3B82F6", "#F87171", "#A78BFA"];
 
-  const stackedBarData = branches.map((branch) => {
-    const data: any = { branch: branch.BranchName };
-    categoryStats.forEach((cat) => {
-      data[cat.name] = Math.floor(Math.random() * 50) + 10;
-    });
-    return data;
-  });
+  // Orders by Branch — generate once during initial render
+  const [ordersByBranch] = useState(() =>
+    branches.map((b) => ({
+      branch: b.BranchName,
+      orders: Math.floor(Math.random() * 200) + 50,
+    })),
+  );
+
+  // Stacked Bar Data — generate once during initial render
+  const [stackedBarData] = useState(() =>
+    branches.map((branch) => {
+      const row: any = { branch: branch.BranchName };
+      categoryStats.forEach((cat) => {
+        row[cat.name] = Math.floor(Math.random() * 50) + 10;
+      });
+      return row;
+    }),
+  );
 
   const goalTrackingData = [
     { goal: "Daily Orders", actual: 80, target: 100 },
