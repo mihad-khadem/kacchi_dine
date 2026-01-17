@@ -13,6 +13,7 @@ import {
 import { removeFromCart, clearCart } from "@/redux/slices/cartSlice";
 import { applyCoupon, removeCoupon } from "@/redux/slices/offersSlice";
 import Link from "next/link";
+import { HeadingFont } from "@/components/ui/headingFont";
 
 const CartPage = () => {
   const { items, branch } = useCart();
@@ -27,12 +28,12 @@ const CartPage = () => {
     return (
       <UserLayout>
         <div className="max-w-4xl mx-auto p-6 my-16">
-          <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
+          <HeadingFont text="Your Cart" />
           <div className="bg-yellow-50 border border-yellow-200 p-8 rounded-lg text-center">
             <p className="text-gray-600 mb-4">Your cart is empty</p>
             <Link
               href="/menu"
-              className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-lg font-semibold transition"
+              className="inline-block bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-2 rounded-lg font-semibold transition"
             >
               Start Shopping
             </Link>
@@ -45,9 +46,7 @@ const CartPage = () => {
   return (
     <UserLayout>
       <div className="max-w-4xl mx-auto p-6 my-10">
-        <h1 className="text-3xl font-bold mb-6">
-          Your Cart {branch && `(${branch})`}
-        </h1>
+        <h1 className="text-3xl font-bold mb-6">Your Cart</h1>
 
         {/* Cart Items */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
@@ -75,10 +74,10 @@ const CartPage = () => {
                         removeFromCart({
                           id: item.id,
                           persons: item.persons,
-                        })
+                        }),
                       )
                     }
-                    className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded transition text-sm font-semibold"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded transition text-sm font-semibold"
                   >
                     Remove
                   </button>
@@ -111,7 +110,7 @@ const CartPage = () => {
                     return;
                   }
                   dispatch(
-                    applyCoupon({ code: couponInput, cartTotal: total })
+                    applyCoupon({ code: couponInput, cartTotal: total }),
                   );
                   if (appliedCoupon === couponInput) {
                     setCouponError("");
@@ -119,7 +118,7 @@ const CartPage = () => {
                     setCouponError("Invalid or expired coupon");
                   }
                 }}
-                className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-lg font-semibold transition"
+                className="bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-2 rounded-lg font-semibold transition"
               >
                 Apply
               </button>
@@ -184,7 +183,7 @@ const CartPage = () => {
           >
             Continue Shopping
           </Link>
-          <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-bold transition">
+          <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-3 rounded-lg font-bold transition">
             Proceed to Checkout
           </button>
         </div>

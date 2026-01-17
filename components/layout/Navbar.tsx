@@ -71,7 +71,7 @@ export default function Navbar() {
 
           <Link
             href="/cart"
-            className="bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2 rounded-full font-semibold transition"
+            className="bg-yellow-400 hover:bg-yellow-500 text-white px-5 py-2 rounded-full font-semibold transition"
           >
             Order Now
           </Link>
@@ -149,7 +149,7 @@ export default function Navbar() {
           <Link
             href="/cart"
             onClick={() => setSidebarOpen(false)}
-            className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2 rounded-full font-semibold text-center transition"
+            className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-white px-5 py-2 rounded-full font-semibold text-center transition"
           >
             Cart
           </Link>

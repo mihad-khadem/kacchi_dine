@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Kacchi Dine",
     images: [
       {
-        url: "/kacchi_logo.png", // must start with /
+        url: "/kacchi_logo.jpeg", // must start with /
         width: 1200,
         height: 630,
         alt: "Kacchi Dine Logo",
@@ -43,9 +43,9 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/kacchi_logo.png",
-    shortcut: "/kacchi_logo.png",
-    apple: "/kacchi_logo.png",
+    icon: "/kacchi_logo.jpeg",
+    shortcut: "/kacchi_logo.jpeg",
+    apple: "/kacchi_logo.jpeg ",
   },
 };
 

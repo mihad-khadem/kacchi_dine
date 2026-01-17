@@ -18,7 +18,7 @@ export default function BranchesGridPage() {
   const divisions = [
     "All",
     "Dhaka",
-    "Chittagong",
+    "Chattogram",
     "Sylhet",
     "Rajshahi",
     "Khulna",
@@ -36,7 +36,7 @@ export default function BranchesGridPage() {
       (b) =>
         (division === "All" || b.division === division) &&
         (b.BranchName.toLowerCase().includes(search.toLowerCase()) ||
-          b.Area.toLowerCase().includes(search.toLowerCase()))
+          b.Area.toLowerCase().includes(search.toLowerCase())),
     );
 
   return (
@@ -78,7 +78,7 @@ export default function BranchesGridPage() {
           const totalPages = Math.ceil(list.length / ITEMS_PER_PAGE);
           const data = list.slice(
             (current - 1) * ITEMS_PER_PAGE,
-            current * ITEMS_PER_PAGE
+            current * ITEMS_PER_PAGE,
           );
 
           return (
@@ -87,9 +87,14 @@ export default function BranchesGridPage() {
                 {data.map((b) => (
                   <BranchCard
                     key={b.id}
-                    name={b.BranchName}
+                    slug={b.slug}
+                    BranchName={b.BranchName}
                     address={b.address}
                     phone={b.phone}
+                    whatsappNo={b.whatsappNo}
+                    isActive={b.isActive}
+                    highlight={b.highlight}
+                    whatsappLink={b.whatsappLink}
                     time={b.time}
                     map={b.map}
                   />

@@ -1,21 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { branches } from "@/public/data/branchesData";
-
-export type Branch = {
-  id: number;
-  BranchName: string;
-  Area: string;
-  division: string;
-  address: string;
-  location: { lat: number; lng: number };
-  phone: string;
-  time: string;
-  map: string;
-};
+import { TBranch } from "@/public/data/branchesData";
 
 type BranchesState = {
-  list: Branch[];
-  selected: Branch | null;
+  list: TBranch[];
+  selected: TBranch | null;
   loading: boolean;
   error: string | null;
 };
@@ -31,7 +20,7 @@ const branchesSlice = createSlice({
   name: "branches",
   initialState,
   reducers: {
-    selectBranch(state, action: PayloadAction<Branch | null>) {
+    selectBranch(state, action: PayloadAction<TBranch | null>) {
       state.selected = action.payload;
     },
     setError(state, action: PayloadAction<string | null>) {

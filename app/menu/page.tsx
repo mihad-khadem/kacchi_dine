@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { menuItems } from "@/public/data/menu";
 
 import { MenuCard } from "@/components/ui/MenuCard";
+import { HeadingFont } from "@/components/ui/headingFont";
 
 interface MenuItem {
   id: number;
@@ -48,9 +49,7 @@ export default function MenuPage() {
   return (
     <UserLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-6 sm:space-y-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6">
-          Our Menu
-        </h1>
+        <HeadingFont text="Choose Your Favorite Dish " />
 
         <Tabs value={activeCategory} onValueChange={handleCategoryChange}>
           <div className="flex justify-start sm:justify-center overflow-x-auto scrollbar-hide">
@@ -71,14 +70,14 @@ export default function MenuPage() {
 
           {categories.map((cat) => {
             const filteredItems = (menuItems as MenuItem[]).filter(
-              (item) => cat === "All" || item.category === cat
+              (item) => cat === "All" || item.category === cat,
             );
             const currentPage = pages[cat] || 1;
             const itemsPerPage = 6;
             const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
             const paginatedItems = filteredItems.slice(
               (currentPage - 1) * itemsPerPage,
-              currentPage * itemsPerPage
+              currentPage * itemsPerPage,
             );
 
             return (

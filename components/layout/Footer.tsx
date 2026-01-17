@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
@@ -50,12 +51,12 @@ export default function Footer() {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="pr-12 backdrop-blur-sm"
+                className="pr-12  backdrop-blur-sm"
               />
               <Button
                 type="submit"
                 size="icon"
-                className="absolute right-1 top-1 h-8 w-8 rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition-transform hover:scale-105"
+                className="absolute right-1  top-1 h-8 w-8 rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition-transform hover:scale-105"
               >
                 <Send className="h-4 w-4" />
                 <span className="sr-only">Subscribe</span>
@@ -68,17 +69,21 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
             <nav className="space-y-2 text-sm">
-              {["Home", "About Us", "Menu", "Branches", "Contact"].map(
-                (link) => (
-                  <a
-                    key={link}
-                    href="#"
-                    className="block transition-colors hover:text-yellow-400"
-                  >
-                    {link}
-                  </a>
-                ),
-              )}
+              {[
+                { name: "Home", href: "/" },
+                { name: "About Us", href: "/about" },
+                { name: "Menu", href: "/menu" },
+                { name: "Branches", href: "/branches" },
+                { name: "Contact Us", href: "/contact" },
+              ].map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="block transition-colors hover:text-yellow-400"
+                >
+                  {link.name}
+                </Link>
+              ))}
             </nav>
           </div>
 
@@ -179,17 +184,19 @@ export default function Footer() {
             © 2026 Kacchi Dine. All rights reserved.
           </p>
           <nav className="flex gap-4 text-sm">
-            {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(
-              (link) => (
-                <a
-                  key={link}
-                  href="#"
-                  className="transition-colors hover:text-yellow-400"
-                >
-                  {link}
-                </a>
-              ),
-            )}
+            {[
+              { name: "Privacy Policy", href: "/privacy-policy" },
+              { name: "Terms of Service", href: "/terms-of-service" },
+              { name: "Cookie Settings", href: "/cookie-settings" },
+            ].map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="transition-colors hover:text-yellow-400"
+              >
+                {link.name}
+              </Link>
+            ))}
           </nav>
         </div>
       </div>

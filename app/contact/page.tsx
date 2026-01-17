@@ -62,20 +62,21 @@ const ContactPage = () => {
               <div>
                 <h3 className="font-bold text-gray-900 mb-2">📍 Address</h3>
                 <p className="text-gray-600">
-                  Multiple locations across Bangladesh
+                  Jahan Buliding-05 (4th Floor), Agrabad C/A, Chattogram,
+                  Bangladesh.
                 </p>
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 mb-2">📞 Phone</h3>
-                <p className="text-gray-600">+880 1XXXXXXXXX</p>
+                <p className="text-gray-600">+880 01810190812</p>
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 mb-2">📧 Email</h3>
-                <p className="text-gray-600">info@kacchidine.com</p>
+                <p className="text-gray-600">kacchidineoffice@gmail.com</p>
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 mb-2">🕐 Hours</h3>
-                <p className="text-gray-600">Mon - Sun: 11:00 AM - 11:00 PM</p>
+                <p className="text-gray-600">Every day 10:00 AM - 09:00 PM</p>
               </div>
             </div>
           </div>
